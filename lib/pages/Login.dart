@@ -19,7 +19,7 @@ class _MyCustomLoginUIState extends State<MyCustomLoginUI>
 
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
     );
 
     _animation = Tween<double>(begin: .7, end: 1).animate(
@@ -27,11 +27,13 @@ class _MyCustomLoginUIState extends State<MyCustomLoginUI>
         parent: _controller,
         curve: Curves.ease,
       ),
-    )..addListener(
+    )
+      ..addListener(
         () {
           setState(() {});
         },
-      )..addStatusListener(
+      )
+      ..addStatusListener(
         (status) {
           if (status == AnimationStatus.completed) {
             _controller.reverse();
@@ -55,7 +57,7 @@ class _MyCustomLoginUIState extends State<MyCustomLoginUI>
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Color(0xff292C31),
+      backgroundColor: const Color(0xff292C31),
       body: ScrollConfiguration(
         behavior: MyBehavior(),
         child: SingleChildScrollView(
@@ -63,25 +65,39 @@ class _MyCustomLoginUIState extends State<MyCustomLoginUI>
             height: _height,
             child: Column(
               children: [
-                Expanded(child: SizedBox()),
+                const Expanded(child: SizedBox()),
                 Expanded(
                   flex: 4,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      SizedBox(),
-                      Text(
-                        'SIGN IN',
+                      const SizedBox(),
+                      const Text(
+                        'SIGN IN TO',
                         style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xffA9DED8),
+                          color: Color.fromARGB(255, 5, 249, 0),
                         ),
                       ),
-                      SizedBox(),
-                      component1(Icons.account_circle_outlined, 'User name...',
-                          false, false),
-                      component1(Icons.email_outlined, 'Email...', false, true),
+                      const SizedBox(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          username(Icons.account_circle_outlined,
+                              'Enter first name...', false, false),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          username(Icons.account_circle_outlined,
+                              'Enter last name...', false, false),
+                          const SizedBox(
+                            width: 35,
+                          ),
+                        ],
+                      ),
+                      component1(Icons.email_outlined, 'Enter last name...',
+                          false, true),
                       component1(
                           Icons.lock_outline, 'Password...', true, false),
                       Row(
@@ -90,8 +106,8 @@ class _MyCustomLoginUIState extends State<MyCustomLoginUI>
                           RichText(
                             text: TextSpan(
                               text: 'Forgotten password!',
-                              style: TextStyle(
-                                color: Color(0xffA9DED8),
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 5, 249, 0),
                               ),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
@@ -106,7 +122,8 @@ class _MyCustomLoginUIState extends State<MyCustomLoginUI>
                           RichText(
                             text: TextSpan(
                               text: 'Create a new Account',
-                              style: TextStyle(color: Color(0xffA9DED8)),
+                              style: const TextStyle(
+                                  color: Color.fromARGB(255, 5, 249, 0)),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
                                   HapticFeedback.lightImpact();
@@ -126,50 +143,28 @@ class _MyCustomLoginUIState extends State<MyCustomLoginUI>
                   child: Stack(
                     children: [
                       Center(
-                        child: Container(
-                          margin: EdgeInsets.only(bottom: _width * .07),
-                          height: _width * .7,
-                          width: _width * .7,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            gradient: LinearGradient(
-                              colors: [
-                                Colors.transparent,
-                                Colors.transparent,
-                                Color(0xff09090A),
-                              ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Center(
-                        child: Transform.scale(
-                          scale: _animation.value,
-                          child: InkWell(
-                            splashColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () {
-                              HapticFeedback.lightImpact();
-                              Fluttertoast.showToast(
-                                msg: 'SIGN-IN button pressed',
-                              );
-                            },
-                            child: Container(
-                              height: _width * .2,
-                              width: _width * .2,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: Color(0xffA9DED8),
-                                shape: BoxShape.circle,
-                              ),
-                              child: Text(
-                                'SIGN-IN',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                        child: InkWell(
+                          // splashColor: Colors.transparent,
+                          // highlightColor: Colors.transparent,
+                          onTap: () {
+                            // HapticFeedback.lightImpact();
+                            // Fluttertoast.showToast(
+                            //   msg: 'SIGN-IN button pressed',
+                            // );
+                          },
+                          child: Container(
+                            height: _width * .1,
+                            width: _width * .4,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 5, 249, 0),
+                                borderRadius: BorderRadius.circular(20)),
+                            child: const Text(
+                              'SIGN-IN',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 20,
                               ),
                             ),
                           ),
@@ -195,7 +190,40 @@ class _MyCustomLoginUIState extends State<MyCustomLoginUI>
       alignment: Alignment.center,
       padding: EdgeInsets.only(right: _width / 30),
       decoration: BoxDecoration(
-        color: Color(0xff212428),
+        color: const Color(0xff212428),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: TextField(
+        style: TextStyle(color: Colors.white.withOpacity(.9)),
+        obscureText: isPassword,
+        keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
+        decoration: InputDecoration(
+          prefixIcon: Icon(
+            icon,
+            color: Colors.white.withOpacity(.7),
+          ),
+          border: InputBorder.none,
+          hintMaxLines: 1,
+          hintText: hintText,
+          hintStyle: TextStyle(
+            fontSize: 14,
+            color: Colors.white.withOpacity(.5),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget username(
+      IconData icon, String hintText, bool isPassword, bool isEmail) {
+    double _width = MediaQuery.of(context).size.width;
+    return Container(
+      height: _width / 8,
+      width: _width * 0.4,
+      alignment: Alignment.center,
+      padding: EdgeInsets.only(right: _width / 30),
+      decoration: BoxDecoration(
+        color: const Color(0xff212428),
         borderRadius: BorderRadius.circular(15),
       ),
       child: TextField(
@@ -221,7 +249,6 @@ class _MyCustomLoginUIState extends State<MyCustomLoginUI>
 }
 
 class MyBehavior extends ScrollBehavior {
-  @override
   Widget buildViewportChrome(
       BuildContext context, Widget child, AxisDirection axisDirection) {
     return child;
