@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:home_renovation/pages/login.dart';
+import 'package:home_renovation/pages/SignUpPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,9 +11,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MyCustomLoginUI()
-    );  
+    return MaterialApp(debugShowCheckedModeBanner: false, home: SignUpPage());
   }
 }

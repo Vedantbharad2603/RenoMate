@@ -1,18 +1,20 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:otp_text_field/otp_field.dart';
+import 'package:otp_text_field/style.dart';
 
-class MyCustomLoginUI extends StatefulWidget {
+class SignUpOtpPage extends StatefulWidget {
+  const SignUpOtpPage({super.key});
+
   @override
-  _MyCustomLoginUIState createState() => _MyCustomLoginUIState();
+  State<SignUpOtpPage> createState() => _SignUpOtpPageState();
 }
 
-class _MyCustomLoginUIState extends State<MyCustomLoginUI>
+class _SignUpOtpPageState extends State<SignUpOtpPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
-
   @override
   void initState() {
     super.initState();
@@ -71,101 +73,67 @@ class _MyCustomLoginUIState extends State<MyCustomLoginUI>
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      const SizedBox(),
                       const Text(
-                        'SIGN IN TO',
+                        'Enter OTP',
                         style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.w600,
                           color: Color.fromARGB(255, 5, 249, 0),
                         ),
                       ),
-                      const SizedBox(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                      Stack(
+                        alignment: Alignment.center,
                         children: [
-                          username(Icons.account_circle_outlined,
-                              'Enter first name...', false, false),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          username(Icons.account_circle_outlined,
-                              'Enter last name...', false, false),
-                          const SizedBox(
-                            width: 35,
-                          ),
-                        ],
-                      ),
-                      component1(Icons.email_outlined, 'Enter last name...',
-                          false, true),
-                      component1(
-                          Icons.lock_outline, 'Password...', true, false),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          RichText(
-                            text: TextSpan(
-                              text: 'Forgotten password!',
-                              style: const TextStyle(
-                                color: Color.fromARGB(255, 5, 249, 0),
-                              ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  HapticFeedback.lightImpact();
-                                  Fluttertoast.showToast(
-                                      msg:
-                                          'Forgotten password! button pressed');
-                                },
+                          OTPTextField(
+                            length: 4,
+                            width: MediaQuery.of(context).size.width,
+                            fieldWidth: 80,
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
+                              color: Color.fromARGB(255, 5, 249, 0),
                             ),
+                            textFieldAlignment: MainAxisAlignment.spaceAround,
+                            fieldStyle: FieldStyle
+                                .box, // Use a box style to hide the default underline
+                            onCompleted: (pin) {
+                              print("Completed: " + pin);
+                            },
                           ),
-                          SizedBox(width: _width / 10),
-                          RichText(
-                            text: TextSpan(
-                              text: 'Create a new Account',
-                              style: const TextStyle(
-                                  color: Color.fromARGB(255, 5, 249, 0)),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  HapticFeedback.lightImpact();
-                                  Fluttertoast.showToast(
-                                    msg: 'Create a new Account button pressed',
-                                  );
-                                },
+                          Positioned(
+                            bottom: 0, // Adjust the position as needed
+                            left: 0, // Adjust the position as needed
+                            right: 0, // Adjust the position as needed
+                            child: Container(
+                              height:
+                                  2, // Set the height of your custom underline
+                              color: Color.fromARGB(255, 5, 249,
+                                  0), // Set the underline color here
                             ),
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: Stack(
-                    children: [
-                      Center(
-                        child: InkWell(
-                          // splashColor: Colors.transparent,
-                          // highlightColor: Colors.transparent,
-                          onTap: () {
-                            // HapticFeedback.lightImpact();
-                            // Fluttertoast.showToast(
-                            //   msg: 'SIGN-IN button pressed',
-                            // );
-                          },
-                          child: Container(
-                            height: _width * .1,
-                            width: _width * .4,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                color: const Color.fromARGB(255, 5, 249, 0),
-                                borderRadius: BorderRadius.circular(20)),
-                            child: const Text(
-                              'SIGN-IN',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 20,
-                              ),
+                      InkWell(
+                        onTap: () {
+                          HapticFeedback.lightImpact();
+                          // Fluttertoast.showToast(
+                          //   msg: 'SIGN-IN button pressed',
+                          // );
+                          // Navigator.push(context,MaterialPageRoute(builder: (context) =>NextPage()));
+                        },
+                        child: Container(
+                          height: _width * .1,
+                          width: _width * .4,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 5, 249, 0),
+                              borderRadius: BorderRadius.circular(20)),
+                          child: const Text(
+                            'SIGN-UP',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20,
                             ),
                           ),
                         ),
@@ -182,7 +150,7 @@ class _MyCustomLoginUIState extends State<MyCustomLoginUI>
   }
 
   Widget component1(
-      IconData icon, String hintText, bool isPassword, bool isEmail) {
+      IconData icon, String hintText, bool isPassword, bool isphone) {
     double _width = MediaQuery.of(context).size.width;
     return Container(
       height: _width / 8,
@@ -196,7 +164,7 @@ class _MyCustomLoginUIState extends State<MyCustomLoginUI>
       child: TextField(
         style: TextStyle(color: Colors.white.withOpacity(.9)),
         obscureText: isPassword,
-        keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
+        keyboardType: isphone ? TextInputType.number : TextInputType.text,
         decoration: InputDecoration(
           prefixIcon: Icon(
             icon,
@@ -243,6 +211,40 @@ class _MyCustomLoginUIState extends State<MyCustomLoginUI>
             color: Colors.white.withOpacity(.5),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget phoneno() {
+    double _width = MediaQuery.of(context).size.width;
+    return Container(
+      height: _width / 5,
+      width: _width / 1.2, // Set the width to match the username widget
+      alignment: Alignment.center,
+      padding: EdgeInsets.only(right: _width / 30),
+      decoration: BoxDecoration(
+        color: const Color(0xff212428),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: IntlPhoneField(
+        decoration: InputDecoration(
+          prefixIcon: Icon(
+            Icons.phone_android_rounded,
+            color: Colors.white,
+          ),
+          border: InputBorder.none,
+          hintMaxLines: 1,
+          hintText: "Enter Phone Number",
+          hintStyle: TextStyle(
+            fontSize: 14,
+            color: Colors.white.withOpacity(.5),
+          ),
+        ),
+        initialCountryCode: 'IN', // Set the initial country code
+        onChanged: (phone) {
+          print(phone
+              .completeNumber); // You can access the complete phone number here
+        },
       ),
     );
   }
