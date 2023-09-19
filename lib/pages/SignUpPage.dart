@@ -202,38 +202,7 @@ class _SignUpPageState extends State<SignUpPage>
     );
   }
 
-  Widget component1(
-      IconData icon, String hintText, bool isPassword, bool isphone) {
-    double _width = MediaQuery.of(context).size.width;
-    return Container(
-      height: _width / 8,
-      width: _width / 1.22,
-      alignment: Alignment.center,
-      padding: EdgeInsets.only(right: _width / 30),
-      decoration: BoxDecoration(
-        color: const Color(0xff212428),
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: TextField(
-        style: TextStyle(color: Colors.white.withOpacity(.9)),
-        obscureText: isPassword,
-        keyboardType: isphone ? TextInputType.number : TextInputType.text,
-        decoration: InputDecoration(
-          prefixIcon: Icon(
-            icon,
-            color: Colors.white.withOpacity(.7),
-          ),
-          border: InputBorder.none,
-          hintMaxLines: 1,
-          hintText: hintText,
-          hintStyle: TextStyle(
-            fontSize: 14,
-            color: Colors.white.withOpacity(.5),
-          ),
-        ),
-      ),
-    );
-  }
+  //Vedant
 
   Widget username(
       IconData icon, String hintText, bool isPassword, bool isEmail) {

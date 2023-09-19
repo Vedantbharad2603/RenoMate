@@ -88,7 +88,7 @@ class _SignUpOtpPageState extends State<SignUpOtpPage>
                             length: 4,
                             width: MediaQuery.of(context).size.width,
                             fieldWidth: 80,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w600,
                               color: Color.fromARGB(255, 5, 249, 0),
@@ -107,7 +107,7 @@ class _SignUpOtpPageState extends State<SignUpOtpPage>
                             child: Container(
                               height:
                                   2, // Set the height of your custom underline
-                              color: Color.fromARGB(255, 5, 249,
+                              color: const Color.fromARGB(255, 5, 249,
                                   0), // Set the underline color here
                             ),
                           ),
@@ -228,7 +228,7 @@ class _SignUpOtpPageState extends State<SignUpOtpPage>
       ),
       child: IntlPhoneField(
         decoration: InputDecoration(
-          prefixIcon: Icon(
+          prefixIcon: const Icon(
             Icons.phone_android_rounded,
             color: Colors.white,
           ),
