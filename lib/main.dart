@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'RenoMate',
       debugShowCheckedModeBanner: false,
+      // home: SignUpPage(),
       home: SignUpPage(),
     );
   }

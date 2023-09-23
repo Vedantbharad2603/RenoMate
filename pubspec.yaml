@@ -39,6 +39,7 @@ dependencies:
   intl_phone_field: ^3.2.0
   firebase_auth: ^4.10.0
   firebase_core: ^2.16.0
+  animations: ^2.0.8
 
 dev_dependencies:
   flutter_test:
