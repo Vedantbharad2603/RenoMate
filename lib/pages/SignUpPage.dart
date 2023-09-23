@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:RenoMate/pages/SignUpOtpPage.dart';
-import 'package:intl_phone_field/country_picker_dialog.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
+// import 'package:intl_phone_field/country_picker_dialog.dart';
+// import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:RenoMate/Packages/intl_phone_field/country_picker_dialog.dart';
+import 'package:RenoMate/Packages/intl_phone_field/intl_phone_field.dart';
 import 'package:flutter/services.dart';
 
 class SignUpPage extends StatefulWidget {
