@@ -1,4 +1,4 @@
-package com.example.home_renovation
+package com.example.RenoMate
 
 import io.flutter.embedding.android.FlutterActivity
 

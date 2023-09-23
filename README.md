@@ -1,4 +1,4 @@
-# home_renovation
+# RenoMate
 
 A new Flutter project.
 

@@ -1,75 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:home_renovation/pages/SignUpOtpPage.dart';
+import 'package:RenoMate/pages/SignUpOtpPage.dart';
+import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:flutter/services.dart';
-import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/style.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
   _SignUpPageState createState() => _SignUpPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 2),
-    );
-
-    _animation = Tween<double>(begin: .7, end: 1).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Curves.ease,
-      ),
-    )
-      ..addListener(
-        () {
-          setState(() {});
-        },
-      )
-      ..addStatusListener(
-        (status) {
-          if (status == AnimationStatus.completed) {
-            _controller.reverse();
-          } else if (status == AnimationStatus.dismissed) {
-            _controller.forward();
-          }
-        },
-      );
-
-    _controller.forward();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
+class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
-    double _width = MediaQuery.of(context).size.width;
-    double _height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: const Color(0xff292C31),
-      body: ScrollConfiguration(
-        behavior: MyBehavior(),
+      body: SafeArea(
         child: SingleChildScrollView(
           child: SizedBox(
-            height: _height,
+            height: height,
             child: Column(
               children: [
-                const Expanded(child: SizedBox()),
+                // const Expanded(child: SizedBox()),
                 Expanded(
-                  flex: 4,
+                  // flex: 4,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -84,84 +39,20 @@ class _SignUpPageState extends State<SignUpPage>
                       ),
                       const SizedBox(),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          username(Icons.account_circle_outlined,
-                              'First Name..', false, false),
-                          const SizedBox(
-                            width: 10,
-                            // width: _width / 10,
+                          username(Icons.account_circle_outlined, 'First Name',
+                              false, false, width * 0.1, 0),
+                          SizedBox(
+                            width: width * 0.05,
                           ),
-                          username(Icons.account_circle_outlined, 'Last Name..',
-                              false, false),
-                          const SizedBox(
-                            width: 35,
-                          ),
+                          username(Icons.account_circle_outlined, 'Last Name',
+                              false, false, 0, width * 0.1),
                         ],
                       ),
-                      // component1(
-                      //   Icons.phone_android_rounded,
-                      //   'Enter Phone Number',
-                      //   false,
-                      //   true,
-                      // ),
-                      phoneno(),
-                      // decoration: InputDecoration(
-                      //   labelText: "Enter Phone Number",
-                      //   border: OutlineInputBorder(
-                      //     borderSide: BorderSide(),
-                      //   ),
-
-                      // ),
-
-                      // OTPTextField(
-                      //   length: 4,
-                      //   width: MediaQuery.of(context).size.width,
-                      //   fieldWidth: 80,
-                      //   style: TextStyle(fontSize: 17),
-                      //   textFieldAlignment: MainAxisAlignment.spaceAround,
-                      //   fieldStyle: FieldStyle.underline,
-                      //   onCompleted: (pin) {
-                      //     print("Completed: " + pin);
-                      //   },
-                      // ),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   children: [
-                      //     RichText(
-                      //       text: TextSpan(
-                      //         text: 'Forgotten password!',
-                      //         style: const TextStyle(
-                      //           color: Color.fromARGB(255, 5, 249, 0),
-                      //         ),
-                      //         recognizer: TapGestureRecognizer()
-                      //           ..onTap = () {
-                      //             HapticFeedback.lightImpact();
-                      //             Fluttertoast.showToast(
-                      //                 msg:
-                      //                     'Forgotten password! button pressed');
-                      //           },
-                      //       ),
-                      //     ),
-                      //     SizedBox(width: _width / 10),
-                      //     RichText(
-                      //       text: TextSpan(
-                      //         text: 'Create a new Account',
-                      //         style: const TextStyle(
-                      //             color: Color.fromARGB(255, 5, 249, 0)),
-                      //         recognizer: TapGestureRecognizer()
-                      //           ..onTap = () {
-                      //             HapticFeedback.lightImpact();
-                      //             Fluttertoast.showToast(
-                      //               msg: 'Create a new Account button pressed',
-                      //             );
-                      //           },
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
+                      phoneno(width * 0.1),
                       SizedBox(
-                        height: _height / 30,
+                        height: height * 0.2,
                       ),
                       InkWell(
                         onTap: () {
@@ -175,8 +66,8 @@ class _SignUpPageState extends State<SignUpPage>
                                   builder: (context) => const SignUpOtpPage()));
                         },
                         child: Container(
-                          height: _width * .1,
-                          width: _width * .4,
+                          height: width * .1,
+                          width: width * .4,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                               color: const Color.fromARGB(255, 5, 249, 0),
@@ -204,77 +95,92 @@ class _SignUpPageState extends State<SignUpPage>
 
   //Vedant
 
-  Widget username(
-      IconData icon, String hintText, bool isPassword, bool isEmail) {
-    double _width = MediaQuery.of(context).size.width;
-    return Container(
-      height: _width / 8,
-      width: _width * 0.4,
-      alignment: Alignment.center,
-      padding: EdgeInsets.only(right: _width / 30),
-      decoration: BoxDecoration(
-        color: const Color(0xff212428),
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: TextField(
-        style: TextStyle(color: Colors.white.withOpacity(.9)),
-        obscureText: isPassword,
-        keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
-        decoration: InputDecoration(
-          prefixIcon: Icon(
-            icon,
-            color: Colors.white.withOpacity(.7),
-          ),
-          border: InputBorder.none,
-          hintMaxLines: 1,
-          hintText: hintText,
-          hintStyle: TextStyle(
-            fontSize: 14,
-            color: Colors.white.withOpacity(.5),
+  Widget username(IconData icon, String hintText, bool isPassword, bool isEmail,
+      double left, double right) {
+    double width = MediaQuery.of(context).size.width;
+    return Expanded(
+      child: Container(
+        height: width * 0.14,
+        // width: _width * 0.4,
+        alignment: Alignment.center,
+        margin: EdgeInsets.fromLTRB(left, 0, right, 0),
+        padding: EdgeInsets.only(right: width * 0.05),
+        decoration: BoxDecoration(
+          color: const Color(0xff212428),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: TextField(
+          style: TextStyle(color: Colors.white.withOpacity(.9)),
+          obscureText: isPassword,
+          keyboardType:
+              isEmail ? TextInputType.emailAddress : TextInputType.text,
+          decoration: InputDecoration(
+            prefixIcon: Icon(
+              icon,
+              color: Colors.white.withOpacity(.7),
+            ),
+            border: InputBorder.none,
+            hintMaxLines: 1,
+            hintText: hintText,
+            hintStyle: TextStyle(
+              fontSize: 14,
+              color: Colors.white.withOpacity(.5),
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget phoneno() {
-    double _width = MediaQuery.of(context).size.width;
+  Widget phoneno(double horizontal) {
+    double width = MediaQuery.of(context).size.width;
     return Container(
-      height: _width / 5,
-      width: _width / 1.2, // Set the width to match the username widget
-      alignment: Alignment.center,
-      padding: EdgeInsets.only(right: _width / 30),
+      height: width * 0.21,
+      // width: _width / 1.2, // Set the width to match the username widget
+      // alignment: Alignment.center,
+      margin: EdgeInsets.fromLTRB(horizontal, 0, horizontal, 0),
+      // padding: EdgeInsets.only(right: _width * 0.1),
       decoration: BoxDecoration(
         color: const Color(0xff212428),
         borderRadius: BorderRadius.circular(15),
       ),
+      padding: EdgeInsets.fromLTRB(10, 0, 15, 0),
       child: IntlPhoneField(
         decoration: InputDecoration(
-          prefixIcon: Icon(
-            Icons.phone_android_rounded,
-            color: Colors.white,
-          ),
+          contentPadding: EdgeInsets.fromLTRB(0, 14, 0, 0),
+          counterStyle: TextStyle(color: Colors.white.withOpacity(.5)),
           border: InputBorder.none,
           hintMaxLines: 1,
           hintText: "Enter Phone Number",
           hintStyle: TextStyle(
-            fontSize: 14,
+            fontSize: 16,
             color: Colors.white.withOpacity(.5),
           ),
         ),
+        style: TextStyle(color: Colors.white.withOpacity(.9)),
+        pickerDialogStyle: PickerDialogStyle(
+          textFieldTextStyle:
+              TextStyle(fontSize: 16, color: Colors.white.withOpacity(.9)),
+          backgroundColor: Colors.black,
+          searchFieldPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+          searchFieldInputDecoration: InputDecoration(
+            labelText: "Search country",
+            suffixIcon: Icon(Icons.search, color: Colors.white.withOpacity(.9)),
+            labelStyle: TextStyle(color: Colors.white.withOpacity(.5)),
+          ),
+          countryCodeStyle: TextStyle(color: Colors.white.withOpacity(.9)),
+          countryNameStyle: TextStyle(color: Colors.white.withOpacity(.9)),
+        ),
+        dropdownTextStyle:
+            TextStyle(fontSize: 16, color: Colors.white.withOpacity(.9)),
+        dropdownIcon:
+            Icon(Icons.arrow_drop_down, color: Colors.white.withOpacity(.9)),
         initialCountryCode: 'IN', // Set the initial country code
         onChanged: (phone) {
-          print(phone
-              .completeNumber); // You can access the complete phone number here
+          // print(phone
+          //     .completeNumber); // You can access the complete phone number here
         },
       ),
     );
-  }
-}
-
-class MyBehavior extends ScrollBehavior {
-  Widget buildViewportChrome(
-      BuildContext context, Widget child, AxisDirection axisDirection) {
-    return child;
   }
 }
