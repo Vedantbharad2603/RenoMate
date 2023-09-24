@@ -1,3 +1,4 @@
+import 'package:RenoMate/pages/SignInPage.dart';
 import 'package:flutter/material.dart';
 import 'package:RenoMate/pages/SignUpOtpPage.dart';
 // import 'package:intl_phone_field/country_picker_dialog.dart';
@@ -168,7 +169,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       height: 20,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           "Already have an account? ",
@@ -177,13 +178,22 @@ class _SignUpPageState extends State<SignUpPage> {
                             fontSize: 16,
                           ),
                         ),
-                        Text(
-                          "Sign in",
-                          style: TextStyle(
-                            color:
-                                Color.fromARGB(255, 5, 249, 0).withOpacity(.9),
-                            fontSize: 16,
-                            decoration: TextDecoration.underline,
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (builder) => SignInPage(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            "Sign in",
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 5, 249, 0)
+                                  .withOpacity(.9),
+                              fontSize: 16,
+                              decoration: TextDecoration.underline,
+                            ),
                           ),
                         ),
                       ],

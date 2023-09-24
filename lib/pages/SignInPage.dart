@@ -1,3 +1,4 @@
+import 'package:RenoMate/pages/SignUpPage.dart';
 import 'package:flutter/material.dart';
 import 'package:RenoMate/pages/SignUpOtpPage.dart';
 // import 'package:intl_phone_field/country_picker_dialog.dart';
@@ -47,21 +48,6 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                     const SizedBox(
                       height: 50,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        username(Icons.account_circle_outlined, 'First Name',
-                            false, false, _width * 0.1, 0),
-                        SizedBox(
-                          width: _width * 0.05,
-                        ),
-                        username(Icons.account_circle_outlined, 'Last Name',
-                            false, false, 0, _width * 0.1),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
                     ),
                     Container(
                         // height: _width * 0.21,
@@ -155,7 +141,7 @@ class _SignInPageState extends State<SignInPage> {
                             color: const Color.fromARGB(255, 5, 249, 0),
                             borderRadius: BorderRadius.circular(20)),
                         child: const Text(
-                          'SIGN-UP',
+                          'SIGN-IN',
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w600,
@@ -168,7 +154,7 @@ class _SignInPageState extends State<SignInPage> {
                       height: 20,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           "Don't have an account? ",
@@ -177,13 +163,22 @@ class _SignInPageState extends State<SignInPage> {
                             fontSize: 16,
                           ),
                         ),
-                        Text(
-                          "Sign up",
-                          style: TextStyle(
-                            color:
-                                Color.fromARGB(255, 5, 249, 0).withOpacity(.9),
-                            fontSize: 16,
-                            decoration: TextDecoration.underline,
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (builder) => SignUpPage(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            "Sign up",
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 5, 249, 0)
+                                  .withOpacity(.9),
+                              fontSize: 16,
+                              decoration: TextDecoration.underline,
+                            ),
                           ),
                         ),
                       ],
@@ -194,45 +189,6 @@ class _SignInPageState extends State<SignInPage> {
                   ],
                 ),
               ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  //Vedant
-
-  Widget username(IconData icon, String hintText, bool isPassword, bool isEmail,
-      double left, double right) {
-    double width = MediaQuery.of(context).size.width;
-    return Expanded(
-      child: Container(
-        height: width * 0.14,
-        // width: _width * 0.4,
-        alignment: Alignment.center,
-        margin: EdgeInsets.fromLTRB(left, 0, right, 0),
-        padding: EdgeInsets.only(right: width * 0.05),
-        decoration: BoxDecoration(
-          color: const Color(0xff212428),
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: TextField(
-          style: TextStyle(color: Colors.white.withOpacity(.9)),
-          obscureText: isPassword,
-          keyboardType:
-              isEmail ? TextInputType.emailAddress : TextInputType.text,
-          decoration: InputDecoration(
-            prefixIcon: Icon(
-              icon,
-              color: Colors.white.withOpacity(.7),
-            ),
-            border: InputBorder.none,
-            hintMaxLines: 1,
-            hintText: hintText,
-            hintStyle: TextStyle(
-              fontSize: 14,
-              color: Colors.white.withOpacity(.5),
             ),
           ),
         ),
