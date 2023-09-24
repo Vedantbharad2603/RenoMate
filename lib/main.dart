@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: 'RenoMate',
       debugShowCheckedModeBanner: false,
       // home: SignUpPage(),
-      home: SecondClass(),
+      home: SpalshScreen(),
     );
   }
 }

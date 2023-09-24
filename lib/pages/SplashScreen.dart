@@ -1,16 +1,17 @@
 import 'dart:async';
+import 'package:RenoMate/pages/SignInPage.dart';
 import 'package:RenoMate/pages/SignUpPage.dart';
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SecondClass extends StatefulWidget {
+class SpalshScreen extends StatefulWidget {
   @override
-  _SecondClassState createState() => _SecondClassState();
+  _SpalshScreenState createState() => _SpalshScreenState();
 }
 
-class _SecondClassState extends State<SecondClass>
+class _SpalshScreenState extends State<SpalshScreen>
     with TickerProviderStateMixin {
   late AnimationController scaleController;
   late Animation<double> scaleAnimation;
@@ -32,10 +33,8 @@ class _SecondClassState extends State<SecondClass>
           if (status == AnimationStatus.completed) {
             Navigator.of(context).pushReplacement(
               ThisIsFadeRoute(
-                // route: SecondClass(),
-                // page: SecondClass(),
-                route: SignUpPage(),
-                page: SignUpPage(),
+                route: SignInPage(),
+                page: SignInPage(),
               ),
             );
             // Timer(
