@@ -8,12 +8,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class SignUpPage extends StatefulWidget {
+class SignInPage extends StatefulWidget {
   @override
-  _SignUpPageState createState() => _SignUpPageState();
+  _SignInPageState createState() => _SignInPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     double _width = MediaQuery.of(context).size.width;
@@ -38,7 +38,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       height: _height * .15,
                     ),
                     const Text(
-                      'SIGN UP TO RENOMATE',
+                      'SIGN IN TO RENOMATE',
                       style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.w600,
@@ -171,14 +171,14 @@ class _SignUpPageState extends State<SignUpPage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          "Already have an account? ",
+                          "Don't have an account? ",
                           style: TextStyle(
                             color: Colors.white.withOpacity(.9),
                             fontSize: 16,
                           ),
                         ),
                         Text(
-                          "Sign in",
+                          "Sign up",
                           style: TextStyle(
                             color:
                                 Color.fromARGB(255, 5, 249, 0).withOpacity(.9),

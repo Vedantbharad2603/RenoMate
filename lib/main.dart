@@ -2,8 +2,7 @@
 //we need to make complete ui
 //and APIs
 
-import 'package:RenoMate/pages/SignUpPage.dart';
-import 'package:RenoMate/pages/starterpage.dart';
+import 'package:RenoMate/pages/SplashScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
