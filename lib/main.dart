@@ -3,6 +3,7 @@
 //and APIs
 
 import 'package:RenoMate/pages/SignUpPage.dart';
+import 'package:RenoMate/pages/starterpage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'RenoMate',
       debugShowCheckedModeBanner: false,
       // home: SignUpPage(),
-      home: SignUpPage(),
+      home: SecondClass(),
     );
   }
 }

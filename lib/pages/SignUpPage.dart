@@ -65,7 +65,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const SignUpOtpPage()));
+                                  builder: (context) => SignUpOtpPage()));
                         },
                         child: Container(
                           height: width * .1,

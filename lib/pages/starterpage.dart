@@ -3,58 +3,7 @@ import 'package:RenoMate/pages/SignUpPage.dart';
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-class StarterPage extends StatefulWidget {
-  @override
-  _StarterPageState createState() => _StarterPageState();
-}
-
-class _StarterPageState extends State<StarterPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            const Text(
-              'Suppose this is an app in your Phone\'s Screen page.',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            OpenContainer(
-              closedBuilder: (_, openContainer) {
-                return Container(
-                  height: 80,
-                  width: 80,
-                  child: const Center(
-                    child: Text(
-                      'App Logo',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                );
-              },
-              openColor: Colors.white,
-              closedElevation: 20,
-              closedShape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              transitionDuration: const Duration(milliseconds: 700),
-              openBuilder: (_, closeContainer) {
-                return SecondClass();
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SecondClass extends StatefulWidget {
   @override
@@ -67,7 +16,9 @@ class _SecondClassState extends State<SecondClass>
   late Animation<double> scaleAnimation;
 
   double _opacity = 0;
-  bool _value = true;
+  // bool _value = true;
+
+  // Timer? _timer; // Declare a timer variable
 
   @override
   void initState() {
@@ -75,22 +26,24 @@ class _SecondClassState extends State<SecondClass>
 
     scaleController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 1000),
     )..addStatusListener(
         (status) {
           if (status == AnimationStatus.completed) {
             Navigator.of(context).pushReplacement(
               ThisIsFadeRoute(
+                // route: SecondClass(),
+                // page: SecondClass(),
                 route: SignUpPage(),
                 page: SignUpPage(),
               ),
             );
-            Timer(
-              const Duration(milliseconds: 300),
-              () {
-                scaleController.reset();
-              },
-            );
+            // Timer(
+            //   const Duration(milliseconds: 300),
+            //   () {
+            //     scaleController.reset();
+            //   },
+            // );
           }
         },
       );
@@ -101,10 +54,20 @@ class _SecondClassState extends State<SecondClass>
     Timer(const Duration(milliseconds: 600), () {
       setState(() {
         _opacity = 1.0;
-        _value = false;
+        // _value = false;
       });
     });
-    Timer(const Duration(milliseconds: 2000), () {
+
+    // Create and start the timer
+    // _timer = Timer(const Duration(milliseconds: 3000), () {
+    //   setState(() {
+    //     if (scaleController.status == AnimationStatus.completed) {
+    //       scaleController.reset();
+    //     }
+    //   });
+    // });
+
+    Timer(const Duration(milliseconds: 3000), () {
       setState(() {
         scaleController.forward();
       });
@@ -113,77 +76,64 @@ class _SecondClassState extends State<SecondClass>
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    // Dispose of the animation controller and cancel the timer
     scaleController.dispose();
+    // _timer?.cancel(); // Cancel the timer if it's still active
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    double _width = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      body: Stack(
-        children: [
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 80),
-                child: Text(
-                  'Here will be your app\'s logo',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18,
+      backgroundColor: Color(0xff292C31),
+      body: Center(
+        child: AnimatedOpacity(
+          curve: Curves.fastLinearToSlowEaseIn,
+          duration: const Duration(seconds: 6),
+          opacity: _opacity,
+          child: AnimatedContainer(
+            curve: Curves.fastLinearToSlowEaseIn,
+            duration: const Duration(seconds: 2),
+            height: _width * .7,
+            width: _width * .7,
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0xff212428).withOpacity(.2),
+                  blurRadius: 100,
+                  spreadRadius: 10,
+                ),
+              ],
+              color: Color(0xff212428),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  child: SvgPicture.asset(
+                    "assets/images/logos/logo_main_white.svg",
+                    fit: BoxFit.cover,
                   ),
                 ),
-              ),
-            ],
-          ),
-          Center(
-            child: AnimatedOpacity(
-              curve: Curves.fastLinearToSlowEaseIn,
-              duration: const Duration(seconds: 6),
-              opacity: _opacity,
-              child: AnimatedContainer(
-                curve: Curves.fastLinearToSlowEaseIn,
-                duration: const Duration(seconds: 2),
-                height: _value ? 50 : 200,
-                width: _value ? 50 : 200,
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.deepPurpleAccent.withOpacity(.2),
-                      blurRadius: 100,
-                      spreadRadius: 10,
-                    ),
-                  ],
-                  color: Colors.deepPurpleAccent,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Center(
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    decoration: const BoxDecoration(
-                        color: Colors.deepPurpleAccent, shape: BoxShape.circle),
-                    child: AnimatedBuilder(
-                      animation: scaleAnimation,
-                      builder: (c, child) => Transform.scale(
-                        scale: scaleAnimation.value,
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.deepPurpleAccent,
-                          ),
-                        ),
+                AnimatedBuilder(
+                  animation: scaleAnimation,
+                  builder: (c, child) => Transform.scale(
+                    scale: scaleAnimation.value,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Color.fromARGB(255, 5, 250, 0),
                       ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -212,18 +162,4 @@ class ThisIsFadeRoute extends PageRouteBuilder {
             child: route,
           ),
         );
-}
-
-class ThirdPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Go Back'),
-        centerTitle: true,
-        backgroundColor: Colors.deepPurpleAccent,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
-      ),
-    );
-  }
 }
