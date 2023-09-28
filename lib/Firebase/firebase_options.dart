@@ -44,38 +44,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDvM8wr9icDn7UsvknQeFH_OKcA0gp81_I',
-    appId: '1:678717948367:web:b9f742b7beee34c9bf92ba',
-    messagingSenderId: '678717948367',
-    projectId: 'renomate-48df7',
-    authDomain: 'renomate-48df7.firebaseapp.com',
-    storageBucket: 'renomate-48df7.appspot.com',
-    measurementId: 'G-ZBBRM6NR6W',
+    apiKey: 'AIzaSyAnnl2PrxMxxLcbHMw6XBJCMJjVPbYi0pw',
+    appId: '1:534259277:web:9afb78406db7f72b979e04',
+    messagingSenderId: '9327052373',
+    projectId: 'renomate-a793b',
+    authDomain: 'renomate-a793b.firebaseapp.com',
+    storageBucket: 'renomate-a793b.appspot.com',
+    measurementId: 'G-LRL3LYN4E7',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDDQMOTCKky-Jggo34CY49hCDtRDppY04s',
-    appId: '1:678717948367:android:ee785d895cbe29d4bf92ba',
-    messagingSenderId: '678717948367',
-    projectId: 'renomate-48df7',
-    storageBucket: 'renomate-48df7.appspot.com',
+    apiKey: 'AIzaSyBHhnZ9L2ECDXZ3hwQZZCtkK47zjsfk-hI',
+    appId: '1:534259277:android:3fd1db00c253c823979e04',
+    messagingSenderId: '9327052373',
+    projectId: 'renomate-a793b',
+    storageBucket: 'renomate-a793b.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAAnztbPfJK5kMxgWc7C8CwE0rzamoKHyQ',
-    appId: '1:678717948367:ios:b214fb1d85ab0dc0bf92ba',
-    messagingSenderId: '678717948367',
-    projectId: 'renomate-48df7',
-    storageBucket: 'renomate-48df7.appspot.com',
-    iosBundleId: 'com.example.RenoMate',
+    apiKey: 'AIzaSyDN0ajrlBbYXzNKPRYHJFCqm1dLCbFOEMI',
+    appId: '1:534259277:ios:72049931e4add852979e04',
+    messagingSenderId: '9327052373',
+    projectId: 'renomate-a793b',
+    storageBucket: 'renomate-a793b.appspot.com',
+    iosBundleId: 'com.example.renomate',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAAnztbPfJK5kMxgWc7C8CwE0rzamoKHyQ',
-    appId: '1:678717948367:ios:c66badb6735a1766bf92ba',
-    messagingSenderId: '678717948367',
-    projectId: 'renomate-48df7',
-    storageBucket: 'renomate-48df7.appspot.com',
-    iosBundleId: 'com.example.RenoMate.RunnerTests',
+    apiKey: 'AIzaSyDN0ajrlBbYXzNKPRYHJFCqm1dLCbFOEMI',
+    appId: '1:534259277:ios:654f4cc476af1425979e04',
+    messagingSenderId: '9327052373',
+    projectId: 'renomate-a793b',
+    storageBucket: 'renomate-a793b.appspot.com',
+    iosBundleId: 'com.example.renomate.RunnerTests',
   );
 }

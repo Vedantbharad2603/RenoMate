@@ -1,4 +1,5 @@
-import 'package:RenoMate/Packages/intl_phone_field/countries.dart';
+
+import 'package:renomate/packages/intl_phone_field/countries.dart';
 
 bool isNumeric(String s) => s.isNotEmpty && int.tryParse(s.replaceAll("+", "")) != null;
 

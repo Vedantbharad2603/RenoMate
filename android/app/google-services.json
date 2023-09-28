@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "678717948367",
-    "project_id": "renomate-48df7",
-    "storage_bucket": "renomate-48df7.appspot.com"
+    "project_number": "534259277",
+    "project_id": "renomate-a793b",
+    "storage_bucket": "renomate-a793b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:678717948367:android:ee785d895cbe29d4bf92ba",
+        "mobilesdk_app_id": "1:534259277:android:3fd1db00c253c823979e04",
         "android_client_info": {
-          "package_name": "com.example.RenoMate"
+          "package_name": "com.example.renomate"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDDQMOTCKky-Jggo34CY49hCDtRDppY04s"
+          "current_key": "AIzaSyBHhnZ9L2ECDXZ3hwQZZCtkK47zjsfk-hI"
         }
       ],
       "services": {

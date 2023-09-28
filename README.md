@@ -1,4 +1,4 @@
-# RenoMate
+# renomate
 
 A new Flutter project.
 

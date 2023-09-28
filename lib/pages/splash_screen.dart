@@ -1,25 +1,20 @@
 import 'dart:async';
-import 'package:RenoMate/pages/SignInPage.dart';
-import 'package:RenoMate/pages/SignUpPage.dart';
-import 'package:animations/animations.dart';
+import 'package:renomate/pages/sign_in_page.dart';
+import 'package:renomate/pages/sign_up_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SpalshScreen extends StatefulWidget {
+class SplashScreen extends StatefulWidget {
   @override
-  _SpalshScreenState createState() => _SpalshScreenState();
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SpalshScreenState extends State<SpalshScreen>
+class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   late AnimationController scaleController;
   late Animation<double> scaleAnimation;
 
   double _opacity = 0;
-  // bool _value = true;
-
-  // Timer? _timer; // Declare a timer variable
 
   @override
   void initState() {
@@ -37,12 +32,6 @@ class _SpalshScreenState extends State<SpalshScreen>
                 page: SignInPage(),
               ),
             );
-            // Timer(
-            //   const Duration(milliseconds: 300),
-            //   () {
-            //     scaleController.reset();
-            //   },
-            // );
           }
         },
       );
@@ -53,18 +42,8 @@ class _SpalshScreenState extends State<SpalshScreen>
     Timer(const Duration(milliseconds: 600), () {
       setState(() {
         _opacity = 1.0;
-        // _value = false;
       });
     });
-
-    // Create and start the timer
-    // _timer = Timer(const Duration(milliseconds: 3000), () {
-    //   setState(() {
-    //     if (scaleController.status == AnimationStatus.completed) {
-    //       scaleController.reset();
-    //     }
-    //   });
-    // });
 
     Timer(const Duration(milliseconds: 3000), () {
       setState(() {
@@ -77,12 +56,12 @@ class _SpalshScreenState extends State<SpalshScreen>
   void dispose() {
     // Dispose of the animation controller and cancel the timer
     scaleController.dispose();
-    // _timer?.cancel(); // Cancel the timer if it's still active
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    // final ap = Provider.of<AuthProvider>(context, listen: false);
     double _width = MediaQuery.of(context).size.width;
 
     return Scaffold(

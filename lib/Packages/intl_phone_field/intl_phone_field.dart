@@ -1,14 +1,13 @@
 library intl_phone_field;
 
 import 'dart:async';
+import 'package:renomate/packages/intl_phone_field/countries.dart';
+import 'package:renomate/packages/intl_phone_field/country_picker_dialog.dart';
+import 'package:renomate/packages/intl_phone_field/helpers.dart';
+import 'package:renomate/packages/intl_phone_field/phone_number.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:RenoMate/Packages/intl_phone_field/country_picker_dialog.dart';
-import 'package:RenoMate/Packages/intl_phone_field/helpers.dart';
-
-import './countries.dart';
-import './phone_number.dart';
 
 class IntlPhoneField extends StatefulWidget {
   /// Whether to hide the text being edited (e.g., for passwords).
