@@ -1,8 +1,6 @@
 import 'dart:developer';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:renomate/packages/intl_phone_field/phone_number.dart';
-import 'package:renomate/pages/sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:renomate/packages/intl_phone_field/country_picker_dialog.dart';
 import 'package:renomate/packages/intl_phone_field/intl_phone_field.dart';
@@ -23,7 +21,7 @@ class _SignInPageState extends State<SignInPage> {
 
   TextEditingController phoneController = TextEditingController();
   late PhoneNumber phoneNumber;
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  // final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -65,11 +63,11 @@ class _SignInPageState extends State<SignInPage> {
                       color: const Color(0xff212428),
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    padding: EdgeInsets.fromLTRB(10, 0, 15, 15),
+                    padding: const EdgeInsets.fromLTRB(10, 0, 15, 15),
                     child: Column(
                       children: [
                         phoneno(),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         InkWell(
@@ -97,7 +95,7 @@ class _SignInPageState extends State<SignInPage> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 60,
                   ),
                   OtpTextField(
@@ -106,7 +104,7 @@ class _SignInPageState extends State<SignInPage> {
                     focusedBorderColor: Colors.transparent,
                     textStyle: TextStyle(color: Colors.white.withOpacity(.9)),
                     filled: true,
-                    fillColor: Color(0xff212428),
+                    fillColor: const Color(0xff212428),
                     showFieldAsBox: true,
                     borderWidth: 2.0,
                     borderRadius: BorderRadius.circular(8),
@@ -117,7 +115,7 @@ class _SignInPageState extends State<SignInPage> {
                       otpCode = verificationCode;
                     },
                   ),
-                  Expanded(child: SizedBox()),
+                  const Expanded(child: SizedBox()),
                   InkWell(
                     onTap: () {
                       HapticFeedback.lightImpact();
@@ -144,7 +142,7 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -168,8 +166,8 @@ class _SignInPageState extends State<SignInPage> {
                         child: Text(
                           "Sign in",
                           style: TextStyle(
-                            color:
-                                Color.fromARGB(255, 5, 249, 0).withOpacity(.9),
+                            color: const Color.fromARGB(255, 5, 249, 0)
+                                .withOpacity(.9),
                             fontSize: 16,
                             decoration: TextDecoration.underline,
                           ),
@@ -206,14 +204,14 @@ class _SignInPageState extends State<SignInPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Error'),
+          title: const Text('Error'),
           content: Text(errorMessage),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );
@@ -227,7 +225,7 @@ class _SignInPageState extends State<SignInPage> {
       keyboardType: TextInputType.number,
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(0, 14, 0, 0),
+        contentPadding: const EdgeInsets.fromLTRB(0, 14, 0, 0),
         counterStyle: TextStyle(color: Colors.white.withOpacity(.5)),
         border: InputBorder.none,
         hintMaxLines: 1,
@@ -242,7 +240,7 @@ class _SignInPageState extends State<SignInPage> {
         textFieldTextStyle:
             TextStyle(fontSize: 16, color: Colors.white.withOpacity(.9)),
         backgroundColor: Colors.black,
-        searchFieldPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+        searchFieldPadding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
         searchFieldInputDecoration: InputDecoration(
           labelText: "Search country",
           suffixIcon: Icon(Icons.search, color: Colors.white.withOpacity(.9)),

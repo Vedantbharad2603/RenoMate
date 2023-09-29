@@ -71,7 +71,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           false, false, 0, _width * 0.1),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -81,11 +81,11 @@ class _SignUpPageState extends State<SignUpPage> {
                       color: const Color(0xff212428),
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    padding: EdgeInsets.fromLTRB(10, 0, 15, 15),
+                    padding: const EdgeInsets.fromLTRB(10, 0, 15, 15),
                     child: Column(
                       children: [
                         phoneno(),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         InkWell(
@@ -113,7 +113,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 60,
                   ),
                   OtpTextField(
@@ -122,7 +122,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     focusedBorderColor: Colors.transparent,
                     textStyle: TextStyle(color: Colors.white.withOpacity(.9)),
                     filled: true,
-                    fillColor: Color(0xff212428),
+                    fillColor: const Color(0xff212428),
                     showFieldAsBox: true,
                     borderWidth: 2.0,
                     borderRadius: BorderRadius.circular(8),
@@ -133,10 +133,11 @@ class _SignUpPageState extends State<SignUpPage> {
                       otpCode = verificationCode;
                     },
                   ),
-                  Expanded(child: SizedBox()),
+                  const Expanded(child: SizedBox()),
                   InkWell(
                     onTap: () {
                       HapticFeedback.lightImpact();
+                      // ignore: unnecessary_null_comparison
                       if (otpCode != null) {
                         verifyOtp(context, otpCode);
                       } else {
@@ -160,7 +161,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -184,8 +185,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         child: Text(
                           "Sign in",
                           style: TextStyle(
-                            color:
-                                Color.fromARGB(255, 5, 249, 0).withOpacity(.9),
+                            color: const Color.fromARGB(255, 5, 249, 0)
+                                .withOpacity(.9),
                             fontSize: 16,
                             decoration: TextDecoration.underline,
                           ),
@@ -207,8 +208,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void sendPhoneNumber(BuildContext context) async {
     log("${phoneNumber.countryCode} ${phoneNumber.number}");
-        try {
-          await _firebaseAuth.verifyPhoneNumber(
+    try {
+      await _firebaseAuth.verifyPhoneNumber(
           phoneNumber: "${phoneNumber.countryCode}${phoneNumber.number}",
           // phoneNumber: "+44 7444 555666",
           verificationCompleted:
@@ -240,14 +241,14 @@ class _SignUpPageState extends State<SignUpPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Error'),
+          title: const Text('Error'),
           content: Text(errorMessage),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );
@@ -344,7 +345,7 @@ class _SignUpPageState extends State<SignUpPage> {
       keyboardType: TextInputType.number,
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(0, 14, 0, 0),
+        contentPadding: const EdgeInsets.fromLTRB(0, 14, 0, 0),
         counterStyle: TextStyle(color: Colors.white.withOpacity(.5)),
         border: InputBorder.none,
         hintMaxLines: 1,
@@ -359,7 +360,7 @@ class _SignUpPageState extends State<SignUpPage> {
         textFieldTextStyle:
             TextStyle(fontSize: 16, color: Colors.white.withOpacity(.9)),
         backgroundColor: Colors.black,
-        searchFieldPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+        searchFieldPadding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
         searchFieldInputDecoration: InputDecoration(
           labelText: "Search country",
           suffixIcon: Icon(Icons.search, color: Colors.white.withOpacity(.9)),
