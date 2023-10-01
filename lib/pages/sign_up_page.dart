@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:renomate/packages/intl_phone_field/country_picker_dialog.dart';
 import 'package:renomate/packages/intl_phone_field/intl_phone_field.dart';
 import 'package:renomate/packages/intl_phone_field/phone_number.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:renomate/utils/utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -17,14 +19,19 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   String verificationId = "";
-  String otpCode = "";
+  String userOtp = "";
 
   String? _uid;
+
   String get uid => _uid!;
 
+  TextEditingController fnameController = TextEditingController();
+  TextEditingController lnameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   late PhoneNumber phoneNumber;
+
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseFirestore db = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -63,12 +70,12 @@ class _SignUpPageState extends State<SignUpPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       username(Icons.account_circle_outlined, 'First Name',
-                          false, false, _width * 0.1, 0),
+                          false, false, _width * 0.1, 0, fnameController),
                       SizedBox(
                         width: _width * 0.05,
                       ),
                       username(Icons.account_circle_outlined, 'Last Name',
-                          false, false, 0, _width * 0.1),
+                          false, false, 0, _width * 0.1, lnameController),
                     ],
                   ),
                   SizedBox(
@@ -130,15 +137,16 @@ class _SignUpPageState extends State<SignUpPage> {
                     //runs when every textfield is filled
                     onSubmit: (String verificationCode) {
                       log(verificationCode);
-                      otpCode = verificationCode;
+                      userOtp = verificationCode;
                     },
                   ),
                   Expanded(child: SizedBox()),
                   InkWell(
                     onTap: () {
                       HapticFeedback.lightImpact();
-                      if (otpCode != null) {
-                        verifyOtp(context, otpCode);
+                      if (userOtp.isNotEmpty && userOtp.length == 6) {
+                        verifyUser(PhoneAuthProvider.credential(
+                            verificationId: verificationId, smsCode: userOtp));
                       } else {
                         showSnackBar(context, "Enter 6-Digit code");
                       }
@@ -151,7 +159,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           color: const Color.fromARGB(255, 5, 249, 0),
                           borderRadius: BorderRadius.circular(20)),
                       child: const Text(
-                        'SIGN-UP',
+                        'SIGN UP',
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w600,
@@ -207,16 +215,18 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void sendPhoneNumber(BuildContext context) async {
     log("${phoneNumber.countryCode} ${phoneNumber.number}");
-        try {
-          await _firebaseAuth.verifyPhoneNumber(
+    try {
+      await _firebaseAuth.verifyPhoneNumber(
           phoneNumber: "${phoneNumber.countryCode}${phoneNumber.number}",
           // phoneNumber: "+44 7444 555666",
           verificationCompleted:
               (PhoneAuthCredential phoneAuthCredential) async {
+            // verifyUser(phoneAuthCredential);
             await _firebaseAuth.signInWithCredential(phoneAuthCredential);
           },
           verificationFailed: (error) {
-            showErrorDialog(context, error.toString());
+            // showErrorDialog(context, error.toString());
+            log(error.toString());
             throw Exception(error.message);
           },
           codeSent: (verificationId, forceResendingToken) {
@@ -228,10 +238,10 @@ class _SignUpPageState extends State<SignUpPage> {
           });
     } on FirebaseAuthException catch (e) {
       // showErrorDialog(context, e.toString());
-      showSnackBar(context, e.message.toString());
+      // showSnackBar(context, e.message.toString());
       log(e.toString());
     }
-    log(verificationId);
+    // log(verificationId);
   }
 
   // Function to show the error dialog with a dynamic message
@@ -255,45 +265,45 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  // verify otp
-  void verifyOtp(BuildContext context, String userOtp) async {
+  void verifyUser(PhoneAuthCredential creds) async {
     try {
-      PhoneAuthCredential creds = PhoneAuthProvider.credential(
-          verificationId: verificationId, smsCode: userOtp);
-
       User? user = (await _firebaseAuth.signInWithCredential(creds)).user;
 
       if (user != null) {
-        // carry our logic
-        _uid = user.uid;
-        log(uid);
-        // checking whether user exists in the db
-        // ap.checkExistingUser().then(
-        //   (value) async {
-        //     if (value == true) {
-        //       // user exists in our app
-        //       ap.getDataFromFirestore().then(
-        //             (value) => ap.saveUserDataToSP().then(
-        //                   (value) => ap.setSignIn().then(
-        //                         (value) => Navigator.pushAndRemoveUntil(
-        //                             context,
-        //                             MaterialPageRoute(
-        //                               builder: (context) => const HomeScreen(),
-        //                             ),
-        //                             (route) => false),
-        //                       ),
-        //                 ),
-        //           );
-        //     } else {
-        //       // new user
-        //       Navigator.pushAndRemoveUntil(
-        //           context,
-        //           MaterialPageRoute(
-        //               builder: (context) => const UserInfromationScreen()),
-        //           (route) => false);
-        //     }
-        //   },
-        // );
+        // log(user.uid);
+        // log(PhoneNumber.fromCompleteNumber(
+        //         completeNumber: user.phoneNumber ?? "")
+        //     .number);
+        // log("${fnameController.text} ${lnameController.text}");
+        // log(user.metadata.toString());
+
+        String phoneNum =
+            (user.phoneNumber ?? "").replaceAll(RegExp(r'[+\s]'), "");
+
+        final userData = <String, String>{
+          "phoneNumber": phoneNum,
+          "firstName": fnameController.text.toUpperCase(),
+          "lastName": lnameController.text.toUpperCase(),
+          "uid": user.uid,
+          "creationTime": user.metadata.creationTime.toString(),
+        };
+
+        db
+            .doc("/users/$phoneNum")
+            .set(userData, SetOptions(merge: true))
+            .then((_) {
+          SharedPreferences.getInstance().then((prefs) {
+            prefs.setBool('isLogin', true);
+            prefs.setString("phoneNumber", phoneNum);
+            prefs.setString("firstName", fnameController.text.toUpperCase());
+            prefs.setString("lastName", lnameController.text.toUpperCase());
+            prefs.setString("uid", user.uid);
+            prefs.setString(
+                "creationTime", user.metadata.creationTime.toString());
+          });
+        }).catchError((e) {
+          log("Error writing document: $e");
+        });
       }
     } on FirebaseAuthException catch (e) {
       // showErrorDialog(context, e.toString());
@@ -303,7 +313,7 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Widget username(IconData icon, String hintText, bool isPassword, bool isEmail,
-      double left, double right) {
+      double left, double right, TextEditingController textEditingController) {
     double width = MediaQuery.of(context).size.width;
     return Expanded(
       child: Container(
@@ -316,6 +326,7 @@ class _SignUpPageState extends State<SignUpPage> {
           borderRadius: BorderRadius.circular(15),
         ),
         child: TextField(
+          controller: textEditingController,
           style: TextStyle(color: Colors.white.withOpacity(.9)),
           obscureText: isPassword,
           keyboardType:

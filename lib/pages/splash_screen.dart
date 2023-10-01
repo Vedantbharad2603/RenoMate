@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'package:renomate/pages/master_page.dart';
 import 'package:renomate/pages/sign_in_page.dart';
 import 'package:renomate/pages/sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -15,6 +17,7 @@ class _SplashScreenState extends State<SplashScreen>
   late Animation<double> scaleAnimation;
 
   double _opacity = 0;
+  late BuildContext _context;
 
   @override
   void initState() {
@@ -24,12 +27,15 @@ class _SplashScreenState extends State<SplashScreen>
       vsync: this,
       duration: const Duration(milliseconds: 1000),
     )..addStatusListener(
-        (status) {
+        (status) async {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          bool? isLogin = prefs.getBool('isLogin');
           if (status == AnimationStatus.completed) {
-            Navigator.of(context).pushReplacement(
+            Navigator.pushReplacement(
+              _context,
               ThisIsFadeRoute(
-                route: SignInPage(),
-                page: SignInPage(),
+                route: isLogin ?? false ? const MasterPage() : SignInPage(),
+                page: isLogin ?? false ? const MasterPage() : SignInPage(),
               ),
             );
           }
@@ -61,11 +67,11 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    // final ap = Provider.of<AuthProvider>(context, listen: false);
+    _context = context;
     double _width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: Color(0xff292C31),
+      backgroundColor: const Color(0xff292C31),
       body: Center(
         child: AnimatedOpacity(
           curve: Curves.fastLinearToSlowEaseIn,
@@ -79,12 +85,12 @@ class _SplashScreenState extends State<SplashScreen>
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
-                  color: Color(0xff212428).withOpacity(.2),
+                  color: const Color(0xff212428).withOpacity(.2),
                   blurRadius: 100,
                   spreadRadius: 10,
                 ),
               ],
-              color: Color(0xff212428),
+              color: const Color(0xff212428),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Stack(

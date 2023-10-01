@@ -48,7 +48,7 @@ class _SignInPageState extends State<SignInPage> {
                     height: _height * .15,
                   ),
                   const Text(
-                    'SIGN UP TO RENOMATE',
+                    'SIGN IN TO RENOMATE',
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.w600,
@@ -75,6 +75,8 @@ class _SignInPageState extends State<SignInPage> {
                         InkWell(
                           onTap: () {
                             HapticFeedback.lightImpact();
+                            isPhoneNumberRegistered(
+                                "${phoneNumber.countryCode} ${phoneNumber.number}");
                             // sendPhoneNumber(context);
                           },
                           child: Container(
@@ -135,7 +137,7 @@ class _SignInPageState extends State<SignInPage> {
                           color: const Color.fromARGB(255, 5, 249, 0),
                           borderRadius: BorderRadius.circular(20)),
                       child: const Text(
-                        'SIGN-UP',
+                        'SIGN IN',
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w600,
@@ -151,7 +153,7 @@ class _SignInPageState extends State<SignInPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Already have an account? ",
+                        "Don't have an account? ",
                         style: TextStyle(
                           color: Colors.white.withOpacity(.9),
                           fontSize: 16,
@@ -161,12 +163,12 @@ class _SignInPageState extends State<SignInPage> {
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (builder) => SignInPage(),
+                              builder: (builder) => SignUpPage(),
                             ),
                           );
                         },
                         child: Text(
-                          "Sign in",
+                          "Sign up",
                           style: TextStyle(
                             color:
                                 Color.fromARGB(255, 5, 249, 0).withOpacity(.9),
@@ -190,13 +192,16 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   void isPhoneNumberRegistered(String phoneNumber) async {
+
     // try {
-    //   await _firebaseAuth.signInWithPhoneNumber(phoneNumber);
+    //   ConfirmationResult result = await _firebaseAuth.signInWithPhoneNumber(phoneNumber);
+    //   log("try: $result");
     // } catch (e) {
     //   // Handle the error - if it's an auth error, the phone number is not registered
     //   if (e is FirebaseAuthException) {
     //     // The phone number is not registered
     //   }
+    //   log("catch: $e");
     // }
   }
 
