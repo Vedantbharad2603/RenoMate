@@ -31,16 +31,12 @@ class _SignUpPageState extends State<SignUpPage> {
   bool passHide = true;
   bool conPassHide = true;
 
-  bool numberChanged = true;
-
   TextEditingController fnameController = TextEditingController();
   TextEditingController lnameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passController = TextEditingController();
   TextEditingController conPassController = TextEditingController();
-
-  PhoneNumber phoneNumber =
-      PhoneNumber.fromCompleteNumber(completeNumber: "+911234567890");
+  late PhoneNumber phoneNumber;
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore db = FirebaseFirestore.instance;
@@ -97,14 +93,44 @@ class _SignUpPageState extends State<SignUpPage> {
                       height: 20,
                     ),
                     Container(
-                        margin: EdgeInsets.fromLTRB(
-                            _width * 0.1, 0, _width * 0.1, 0),
-                        decoration: BoxDecoration(
-                          color: const Color(0xff212428),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        padding: const EdgeInsets.fromLTRB(10, 0, 15, 15),
-                        child: phoneno()),
+                      margin:
+                          EdgeInsets.fromLTRB(_width * 0.1, 0, _width * 0.1, 0),
+                      decoration: BoxDecoration(
+                        color: const Color(0xff212428),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      padding: const EdgeInsets.fromLTRB(10, 0, 15, 15),
+                      child: Column(
+                        children: [
+                          phoneno(),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              HapticFeedback.lightImpact();
+                              sendPhoneNumber(context);
+                            },
+                            child: Container(
+                              height: _width * .08,
+                              width: _width * .3,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  color: const Color.fromARGB(255, 5, 249, 0),
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: const Text(
+                                'Send OTP',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -144,63 +170,14 @@ class _SignUpPageState extends State<SignUpPage> {
                   children: [
                     InkWell(
                       onTap: () {
-                        // HapticFeedback.lightImpact();
-
-                        if (fnameController.text.isEmpty) {
-                          showSnackBar(context, "First Name Required");
-                          return;
-                        }
-
-                        if (lnameController.text.isEmpty) {
-                          showSnackBar(context, "Last Name Required");
-                          return;
-                        }
-
-                        if (phoneNumber.number.isEmpty ||
-                            phoneNumber.completeNumber == "911234567890") {
-                          showSnackBar(context, "Phone Number Required");
-                          return;
-                        }
-
-                        if (!phoneNumber.isValidNumber() ||
-                            phoneNumber.completeNumber == "911234567890") {
-                          showSnackBar(context, "Phone number not valid");
-                          return;
-                        }
-
-                        if (passController.text.isEmpty) {
-                          showSnackBar(context, "Password Required");
-                          return;
-                        }
-
-                        if (!isPasswordValid(passController.text)) {
-                          showSnackBar(context, "Invalid password format");
-                          return;
-                        }
-
-                        if (conPassController.text.isEmpty) {
-                          showSnackBar(context, "Confirm Password Required");
-                          return;
-                        }
-
-                        if (conPassController.text != passController.text) {
-                          showSnackBar(context, "Confirm Password Not Match");
-                          return;
-                        }
-
-                        if (numberChanged) {
-                          sendPhoneNumber(context);
-                          numberChanged = false;
+                        HapticFeedback.lightImpact();
+                        if (userOtp.isNotEmpty && userOtp.length == 6) {
+                          verifyUser(PhoneAuthProvider.credential(
+                              verificationId: verificationId,
+                              smsCode: userOtp));
                         } else {
-                          if (userOtp.isNotEmpty && userOtp.length == 6) {
-                            verifyUser(PhoneAuthProvider.credential(
-                                verificationId: verificationId,
-                                smsCode: userOtp));
-                          } else {
-                            showSnackBar(context, "Enter 6-Digit code");
-                          }
+                          showSnackBar(context, "Enter 6-Digit code");
                         }
-                        setState(() {});
                       },
                       child: Container(
                         height: _width * .1,
@@ -209,8 +186,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         decoration: BoxDecoration(
                             color: const Color.fromARGB(255, 5, 249, 0),
                             borderRadius: BorderRadius.circular(20)),
-                        child: Text(
-                          numberChanged ? 'SEND OTP' : 'SIGN UP',
+                        child: const Text(
+                          'SIGN UP',
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w600,
@@ -266,8 +243,7 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   void sendPhoneNumber(BuildContext context) async {
-    // log("${phoneNumber.countryCode} ${phoneNumber.number}");
-
+    log("${phoneNumber.countryCode} ${phoneNumber.number}");
     try {
       await _firebaseAuth.verifyPhoneNumber(
           phoneNumber: "${phoneNumber.countryCode}${phoneNumber.number}",
@@ -319,6 +295,13 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   void verifyUser(PhoneAuthCredential creds) async {
+    String password = passController.text;
+
+    if (!isPasswordValid(password)) {
+      showSnackBar(context, "Invalid password format");
+      return;
+    }
+
     try {
       User? user = (await _firebaseAuth.signInWithCredential(creds)).user;
 
@@ -334,8 +317,7 @@ class _SignUpPageState extends State<SignUpPage> {
             (user.phoneNumber ?? "").replaceAll(RegExp(r'[+\s]'), "");
 
         // Hash the password using MD5
-        String hashedPassword =
-            md5.convert(utf8.encode(passController.text)).toString();
+        String hashedPassword = md5.convert(utf8.encode(password)).toString();
 
         final userData = <String, String>{
           "phoneNumber": phoneNum,
@@ -360,13 +342,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 "creationTime", user.metadata.creationTime.toString());
           });
 
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => MasterPage(),
-            ),
-            (route) => false, // This will remove all routes from the stack
-          );
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: ((context) => MasterPage())));
         }).catchError((e) {
           log("Error writing document: $e");
         });
@@ -504,8 +481,6 @@ class _SignUpPageState extends State<SignUpPage> {
       initialCountryCode: 'IN', // Set the initial country code
       onChanged: (phone) {
         phoneNumber = phone;
-        numberChanged = true;
-        setState(() {});
         // log(phone
         //     .completeNumber); // You can access the complete phone number here
       },
