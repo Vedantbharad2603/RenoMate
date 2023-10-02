@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:renomate/pages/sign_in_page.dart';
+import 'package:renomate/theme/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
     return Scaffold(
       // backgroundColor: const Color(0xff292C31),
-      backgroundColor: Colors.black,
+      backgroundColor: MyTheme.background,
       body: SafeArea(
         child: Container(
           child: Column(
@@ -31,7 +37,7 @@ class ProfilePage extends StatelessWidget {
                         // fontSize: 35,
                         fontSize: _height * 0.04,
                         fontWeight: FontWeight.w600,
-                        color: Colors.white,
+                        color: MyTheme.text,
                       ),
                     ),
                   ),
@@ -64,7 +70,7 @@ class ProfilePage extends StatelessWidget {
                             fontSize: _height * 0.035,
                             fontWeight: FontWeight.w600,
                             // color: Color.fromARGB(255, 5, 250, 0),
-                            color: const Color.fromARGB(255, 5, 250, 0),
+                            color: MyTheme.primary,
                           ),
                         ),
                         Text(
@@ -75,7 +81,7 @@ class ProfilePage extends StatelessWidget {
                             fontSize: _height * 0.017,
                             fontWeight: FontWeight.w600,
                             // color: Color.fromRGBO(118, 118, 118, 1),
-                            color: const Color.fromRGBO(118, 118, 118, 1),
+                            color: MyTheme.description,
                           ),
                         ),
                       ],
@@ -109,6 +115,12 @@ class ProfilePage extends StatelessWidget {
                 });
               }),
               horizontalLine(),
+              card("Change Theme", "Change Theme between Light and Dark Mode",
+                  () {
+                MyTheme.toggleTheme;
+                setState(() {});
+              }),
+              horizontalLine(),
             ],
           ),
         ),
@@ -117,12 +129,12 @@ class ProfilePage extends StatelessWidget {
   }
 
   Widget horizontalLine() {
-    return const SizedBox(
+    return SizedBox(
       height: 1,
       width: double.infinity,
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Color.fromRGBO(118, 118, 118, 1),
+          color: MyTheme.accent,
         ),
       ),
     );
@@ -146,7 +158,7 @@ class ProfilePage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                      color: MyTheme.title,
                     ),
                   ),
                   Text(
@@ -155,7 +167,7 @@ class ProfilePage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
-                      color: Color.fromRGBO(118, 118, 118, 1),
+                      color: MyTheme.description,
                     ),
                   ),
                 ],
@@ -164,13 +176,13 @@ class ProfilePage extends StatelessWidget {
             Container(
               width: 30,
               // alignment: Alignment.centerRight,
-              child: const Text(
+              child: Text(
                 ">",
                 textAlign: TextAlign.left,
                 style: TextStyle(
                   fontSize: 35,
                   fontWeight: FontWeight.w600,
-                  color: Colors.white,
+                  color: MyTheme.title,
                 ),
               ),
             ),

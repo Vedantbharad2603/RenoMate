@@ -2,12 +2,14 @@ import 'package:renomate/firebase/firebase_options.dart';
 import 'package:renomate/pages/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:renomate/theme/colors.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await MyTheme.init();
   runApp(const MyApp());
 }
 

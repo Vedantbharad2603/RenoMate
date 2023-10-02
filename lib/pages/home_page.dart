@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:renomate/theme/colors.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -38,72 +39,73 @@ class _HomePageState extends State<HomePage> {
     ),
   ];
 
-  final List<Map<String, dynamic>> workCardData = [
-    {
-      "toolIcon": Icons.format_paint,
-      "title": "Wall Painting",
-      "mainRoundBack": Color.fromRGBO(108, 92, 231, 1),
-      "smallRoundBack": Color.fromRGBO(162, 155, 254, 1),
-      "onClick": () {}
-    },
-    {
-      "toolIcon": Icons.plumbing_rounded,
-      "title": "Plumbing",
-      "mainRoundBack": Color.fromRGBO(225, 112, 85, 1),
-      "smallRoundBack": Color.fromRGBO(250, 177, 160, 1),
-      "onClick": () {}
-    },
-    {
-      "toolIcon": Icons.power,
-      "title": "Electrician",
-      "mainRoundBack": Color.fromRGBO(1, 163, 164, 1),
-      "smallRoundBack": Color.fromRGBO(0, 210, 211, 1),
-      "onClick": () {}
-    },
-    {
-      "toolIcon": Icons.more_vert_rounded,
-      "title": "More",
-      "mainRoundBack": Color.fromRGBO(255, 159, 67, 1),
-      "smallRoundBack": Color.fromRGBO(254, 202, 87, 1),
-      "onClick": () {}
-    },
-    {
-      "toolIcon": Icons.format_paint,
-      "title": "Wall Painting",
-      "mainRoundBack": Color.fromRGBO(108, 92, 231, 1),
-      "smallRoundBack": Color.fromRGBO(162, 155, 254, 1),
-      "onClick": () {}
-    },
-    {
-      "toolIcon": Icons.plumbing_rounded,
-      "title": "Plumbing",
-      "mainRoundBack": Color.fromRGBO(225, 112, 85, 1),
-      "smallRoundBack": Color.fromRGBO(250, 177, 160, 1),
-      "onClick": () {}
-    },
-    {
-      "toolIcon": Icons.power,
-      "title": "Electrician",
-      "mainRoundBack": Color.fromRGBO(1, 163, 164, 1),
-      "smallRoundBack": Color.fromRGBO(0, 210, 211, 1),
-      "onClick": () {}
-    },
-    {
-      "toolIcon": Icons.more_vert_rounded,
-      "title": "More",
-      "mainRoundBack": Color.fromRGBO(255, 159, 67, 1),
-      "smallRoundBack": Color.fromRGBO(254, 202, 87, 1),
-      "onClick": () {}
-    },
-  ];
-
   @override
   Widget build(BuildContext context) {
     // double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
 
+    final List<Map<String, dynamic>> workCardData = [
+      {
+        "toolIcon": Icons.format_paint,
+        "title": "Wall Painting",
+        "mainRoundBack": Color.fromRGBO(108, 92, 231, 1),
+        "smallRoundBack": Color.fromRGBO(162, 155, 254, 1),
+        "onClick": () {}
+      },
+      {
+        "toolIcon": Icons.plumbing_rounded,
+        "title": "Plumbing",
+        "mainRoundBack": Color.fromRGBO(225, 112, 85, 1),
+        "smallRoundBack": Color.fromRGBO(250, 177, 160, 1),
+        "onClick": () {}
+      },
+      {
+        "toolIcon": Icons.power,
+        "title": "Electrician",
+        "mainRoundBack": Color.fromRGBO(1, 163, 164, 1),
+        "smallRoundBack": Color.fromRGBO(0, 210, 211, 1),
+        "onClick": () {}
+      },
+      {
+        "toolIcon": Icons.more_vert_rounded,
+        "title": "More",
+        "mainRoundBack": Color.fromRGBO(255, 159, 67, 1),
+        "smallRoundBack": Color.fromRGBO(254, 202, 87, 1),
+        "onClick": () {}
+      },
+      {
+        "toolIcon": Icons.format_paint,
+        "title": "Wall Painting",
+        "mainRoundBack": Color.fromRGBO(108, 92, 231, 1),
+        "smallRoundBack": Color.fromRGBO(162, 155, 254, 1),
+        "onClick": () {}
+      },
+      {
+        "toolIcon": Icons.plumbing_rounded,
+        "title": "Plumbing",
+        "mainRoundBack": Color.fromRGBO(225, 112, 85, 1),
+        "smallRoundBack": Color.fromRGBO(250, 177, 160, 1),
+        "onClick": () {}
+      },
+      {
+        "toolIcon": Icons.power,
+        "title": "Electrician",
+        "mainRoundBack": Color.fromRGBO(1, 163, 164, 1),
+        "smallRoundBack": Color.fromRGBO(0, 210, 211, 1),
+        "onClick": () {}
+      },
+      {
+        "toolIcon": Icons.more_vert_rounded,
+        "title": "More",
+        "mainRoundBack": Color.fromRGBO(255, 159, 67, 1),
+        "smallRoundBack": Color.fromRGBO(254, 202, 87, 1),
+        "onClick": () {}
+      },
+    ];
+
     return Scaffold(
-      backgroundColor: Colors.black,
+      // backgroundColor: Colors.black,
+      backgroundColor: MyTheme.background,
       // backgroundColor: const Color(0xff292C31),
       body: SafeArea(
         child: Container(
@@ -163,12 +165,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget horizontalLine() {
-    return const SizedBox(
+    return SizedBox(
       height: 1,
       width: double.infinity,
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Color.fromRGBO(118, 118, 118, 1),
+          color: MyTheme.accent,
         ),
       ),
     );
@@ -186,7 +188,7 @@ class _HomePageState extends State<HomePage> {
         // height: _width * .41,
         // width: _width * .41,
         decoration: BoxDecoration(
-            color: Color.fromRGBO(118, 118, 118, 1),
+            color: MyTheme.accent,
             borderRadius: BorderRadius.circular(_width * .08)
             // borderRadius: BorderRadius.only(
             //   topRight: Radius.circular(30),
@@ -223,7 +225,7 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w600,
-                    color: Colors.white,
+                    color: MyTheme.title,
                     overflow: TextOverflow.ellipsis),
               ),
             ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:renomate/pages/home_page.dart';
 import 'package:renomate/pages/profile_page.dart';
+import 'package:renomate/theme/colors.dart';
 
 class MasterPage extends StatefulWidget {
   const MasterPage({super.key});
@@ -32,20 +33,20 @@ class _MasterPageState extends State<MasterPage> {
             color: Colors.white,
           ),
         ),
-        backgroundColor: const Color.fromRGBO(118, 118, 118, 1),
+        backgroundColor: MyTheme.accent,
         centerTitle: true,
       ),
       body: pages[currIndex],
       bottomNavigationBar: Container(
-        color: const Color.fromRGBO(118, 118, 118, 1),
+        color: MyTheme.accent,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
           child: GNav(
-            backgroundColor: const Color.fromRGBO(118, 118, 118, 1),
+            backgroundColor: MyTheme.accent,
             selectedIndex: 1,
-            color: Colors.black,
+            color: MyTheme.background,
             activeColor: const Color.fromARGB(255, 5, 249, 0),
-            tabBackgroundColor: Colors.black,
+            tabBackgroundColor: MyTheme.background,
             padding: const EdgeInsets.all(8),
             gap: 20,
             onTabChange: (index) {
