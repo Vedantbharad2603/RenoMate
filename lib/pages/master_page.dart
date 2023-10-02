@@ -15,8 +15,8 @@ class _MasterPageState extends State<MasterPage> {
   List pages = [
     const HomePage(),
     const HomePage(),
-    const UserProfile(),
-    const UserProfile(),
+    const ProfilePage(),
+    const ProfilePage(),
   ];
   @override
   Widget build(BuildContext context) {

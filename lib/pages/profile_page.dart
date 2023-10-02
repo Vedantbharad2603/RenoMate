@@ -3,8 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:renomate/pages/sign_in_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class UserProfile extends StatelessWidget {
-  const UserProfile({super.key});
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
