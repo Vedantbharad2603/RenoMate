@@ -8,23 +8,28 @@ class UserProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double _width = MediaQuery.of(context).size.width;
+    double _height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: const Color(0xff292C31),
+      // backgroundColor: const Color(0xff292C31),
+      backgroundColor: Colors.black,
       body: SafeArea(
         child: Container(
           child: Column(
             children: [
               //Page Name
               Padding(
-                padding: const EdgeInsets.all(25.0),
+                // padding: const EdgeInsets.all(25.0),
+                padding: EdgeInsets.all(_height * 0.02),
                 child: SizedBox(
                   width: double.infinity,
                   child: Container(
-                    child: const Text(
+                    child: Text(
                       "My Profile",
                       textAlign: TextAlign.left,
                       style: TextStyle(
-                        fontSize: 35,
+                        // fontSize: 35,
+                        fontSize: _height * 0.04,
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
                       ),
@@ -33,37 +38,44 @@ class UserProfile extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 20),
+                // padding: const EdgeInsets.only(left: 20),
+                padding: EdgeInsets.only(left: _width * 0.05),
                 child: Row(
                   children: [
                     CircleAvatar(
-                      radius: 48,
+                      // radius: 48,
+                      radius: _height * 0.057,
                       backgroundColor: Colors.transparent,
                       child: SvgPicture.asset(
                         "assets/images/logos/logo_main_white.svg",
                       ),
                     ),
-                    const SizedBox(
-                      width: 10,
+                    SizedBox(
+                      // width: 10,
+                      width: _width * 0.02,
                     ),
-                    const Column(
+                    Column(
                       children: [
                         Text(
                           "User Name",
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                            fontSize: 30,
+                            // fontSize: 30,
+                            fontSize: _height * 0.035,
                             fontWeight: FontWeight.w600,
-                            color: Color.fromARGB(255, 5, 250, 0),
+                            // color: Color.fromARGB(255, 5, 250, 0),
+                            color: const Color.fromARGB(255, 5, 250, 0),
                           ),
                         ),
                         Text(
                           "+91 1010101010",
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                            fontSize: 15,
+                            // fontSize: 15,
+                            fontSize: _height * 0.017,
                             fontWeight: FontWeight.w600,
-                            color: Color.fromRGBO(118, 118, 118, 1),
+                            // color: Color.fromRGBO(118, 118, 118, 1),
+                            color: const Color.fromRGBO(118, 118, 118, 1),
                           ),
                         ),
                       ],
@@ -71,8 +83,9 @@ class UserProfile extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 30,
+              SizedBox(
+                // height: 30,
+                height: _height * 0.02,
               ),
               horizontalLine(),
               card("My Work", "Temp text for my work", () {}),

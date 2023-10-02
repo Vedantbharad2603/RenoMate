@@ -1,7 +1,3 @@
-//TODO by 12/10/23
-//we need to make complete ui
-//and APIs
-
 import 'package:renomate/firebase/firebase_options.dart';
 import 'package:renomate/pages/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
