@@ -5,7 +5,8 @@ import 'package:renomate/theme/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  final VoidCallback? onThemeToggle;
+  const ProfilePage({Key? key, this.onThemeToggle}) : super(key: key);
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -119,6 +120,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   () {
                 MyTheme.toggleTheme;
                 setState(() {});
+                widget.onThemeToggle?.call();
               }),
               horizontalLine(),
             ],

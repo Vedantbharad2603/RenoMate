@@ -13,14 +13,15 @@ class MasterPage extends StatefulWidget {
 
 class _MasterPageState extends State<MasterPage> {
   int currIndex = 1;
-  List pages = [
-    const HomePage(),
-    const HomePage(),
-    const ProfilePage(),
-    const ProfilePage(),
-  ];
   @override
   Widget build(BuildContext context) {
+    List pages = [
+      const HomePage(),
+      const HomePage(),
+      ProfilePage(onThemeToggle: () => setState(() {})),
+      ProfilePage(onThemeToggle: () => setState(() {})),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -45,7 +46,7 @@ class _MasterPageState extends State<MasterPage> {
             backgroundColor: MyTheme.accent,
             selectedIndex: 1,
             color: MyTheme.background,
-            activeColor: const Color.fromARGB(255, 5, 249, 0),
+            activeColor: MyTheme.primary,
             tabBackgroundColor: MyTheme.background,
             padding: const EdgeInsets.all(8),
             gap: 20,
