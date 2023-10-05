@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:renomate/packages/intl_phone_field/phone_number.dart';
 import 'package:flutter/material.dart';
 import 'package:renomate/packages/intl_phone_field/country_picker_dialog.dart';
@@ -237,10 +238,13 @@ class _SignInPageState extends State<SignInPage> {
     }
 
     phoneNum = phoneNum.replaceFirst("+", "");
-    log(phoneNum);
+    // log(phoneNum);
+    EasyLoading.show(status: 'Please Wait ...');
 
     db.doc("/users/$phoneNum").get().then(
       (DocumentSnapshot doc) {
+        EasyLoading.dismiss();
+
         if (doc.exists) {
           final data = doc.data() as Map<String, dynamic>;
           // Retrieve the hashed password from Firestore
@@ -276,6 +280,7 @@ class _SignInPageState extends State<SignInPage> {
         }
       },
       onError: (e) {
+        EasyLoading.dismiss();
         log("Error getting document: $e");
         showSnackBar(context, "Phone Number not registered");
       },

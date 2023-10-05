@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:renomate/pages/home_page.dart';
 import 'package:renomate/pages/profile_page.dart';
-import 'package:renomate/theme/colors.dart';
+import 'package:renomate/theme.dart';
 
 class MasterPage extends StatefulWidget {
   const MasterPage({super.key});

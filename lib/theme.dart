@@ -12,6 +12,7 @@ class MyTheme {
   static Color get primary => _primaryColor();
   static Color get accent => _accentColor();
   static Color get background => _backgroundColor();
+  static Color get backgroundSecondry => _backgroundSecondryColor();
   static Color get cardBackground => _cardBackgroundColor();
   static Color get button1 => _buttonColor1();
   static Color get button2 => _buttonColor2();
@@ -36,6 +37,12 @@ class MyTheme {
   static Color _backgroundColor() {
     return (_prefs.getBool("darkMode") ?? true)
         ? const Color.fromRGBO(41, 44, 49, 1)
+        : const Color.fromARGB(255, 255, 255, 255);
+  }
+
+  static Color _backgroundSecondryColor() {
+    return (_prefs.getBool("darkMode") ?? true)
+        ? const Color.fromRGBO(33, 36, 40, 1)
         : const Color.fromARGB(255, 255, 255, 255);
   }
 

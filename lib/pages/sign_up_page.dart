@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:renomate/packages/intl_phone_field/country_picker_dialog.dart';
 import 'package:renomate/packages/intl_phone_field/intl_phone_field.dart';
 import 'package:renomate/packages/intl_phone_field/phone_number.dart';
@@ -145,6 +146,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     InkWell(
                       onTap: () {
                         // HapticFeedback.lightImpact();
+                        // EasyLoading.show(status: 'Please Wait ...');
 
                         if (fnameController.text.isEmpty) {
                           showSnackBar(context, "First Name Required");
@@ -189,10 +191,13 @@ class _SignUpPageState extends State<SignUpPage> {
                         }
 
                         if (numberChanged) {
+                          EasyLoading.show(status: 'Please Wait ...');
+
                           sendPhoneNumber(context);
                           numberChanged = false;
                         } else {
                           if (userOtp.isNotEmpty && userOtp.length == 6) {
+                            EasyLoading.show(status: 'Please Wait ...');
                             verifyUser(PhoneAuthProvider.credential(
                                 verificationId: verificationId,
                                 smsCode: userOtp));
@@ -276,13 +281,18 @@ class _SignUpPageState extends State<SignUpPage> {
               (PhoneAuthCredential phoneAuthCredential) async {
             // verifyUser(phoneAuthCredential);
             await _firebaseAuth.signInWithCredential(phoneAuthCredential);
+            EasyLoading.dismiss();
           },
           verificationFailed: (error) {
+            EasyLoading.dismiss();
             // showErrorDialog(context, error.toString());
             log(error.toString());
+            numberChanged = true;
+            showSnackBar(context, "Please check your internet connection");
             throw Exception(error.message);
           },
           codeSent: (verificationId, forceResendingToken) {
+            EasyLoading.dismiss();
             this.verificationId = verificationId;
             // showErrorDialog(context, verificationId);
           },
@@ -292,9 +302,13 @@ class _SignUpPageState extends State<SignUpPage> {
     } on FirebaseAuthException catch (e) {
       // showErrorDialog(context, e.toString());
       // showSnackBar(context, e.message.toString());
+      numberChanged = true;
+      EasyLoading.dismiss();
+      showSnackBar(context, "Please check your internet connection");
       log(e.toString());
     }
     // log(verificationId);
+    setState(() {});
   }
 
   // Function to show the error dialog with a dynamic message
@@ -358,21 +372,25 @@ class _SignUpPageState extends State<SignUpPage> {
             prefs.setString("uid", user.uid);
             prefs.setString(
                 "creationTime", user.metadata.creationTime.toString());
-          });
 
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => MasterPage(),
-            ),
-            (route) => false, // This will remove all routes from the stack
-          );
+            EasyLoading.dismiss();
+
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MasterPage(),
+              ),
+              (route) => false, // This will remove all routes from the stack
+            );
+          });
         }).catchError((e) {
+          EasyLoading.dismiss();
           log("Error writing document: $e");
         });
       }
     } on FirebaseAuthException catch (e) {
       // showErrorDialog(context, e.toString());
+      EasyLoading.dismiss();
       showSnackBar(context, e.message.toString());
       log(e.toString());
     }

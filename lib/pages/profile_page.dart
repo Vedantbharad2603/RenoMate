@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:renomate/pages/sign_in_page.dart';
-import 'package:renomate/theme/colors.dart';
+import 'package:renomate/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
